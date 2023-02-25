@@ -6,7 +6,7 @@ class SrealitySpider(scrapy.Spider):
 
     def start_requests(self):
         urls = [
-            'https://www.sreality.cz/api/cs/v2/estates?category_main_cb=1&category_type_cb=1&page=1&per_page=5',
+            'https://www.sreality.cz/api/cs/v2/estates?category_main_cb=1&category_type_cb=1&page=1&per_page=500',
         ]
         for url in urls:
             yield scrapy.Request(url=url, callback=self.parse)
