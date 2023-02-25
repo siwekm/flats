@@ -1,0 +1,24 @@
+services:
+  db:
+    image: postgres
+    ports:
+      - 5432:5432
+    restart: always
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: 1234
+      POSTGRES_DB: real_estate
+  scraper:
+    build: .
+    depends_on:
+      - db
+    command: sh -c "sleep 10s; python3 ./main.py; python3 ./httpServer.py"
+    environment:
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_NAME: real_estate
+      DB_USER: admin
+      DB_PASSWORD: 1234
+      HTTP_HOST: 0.0.0.0
+    ports:
+      - 8080:8080
